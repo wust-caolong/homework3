@@ -21,14 +21,14 @@ async function get(url) {
   
     let tpl = document.getElementById("tpl").innerHTML;
   //【需要完成代码1】：此处实现新闻模板内容的渲染
-    let html = newsDataRender
+    let html = newsDataRender    //遍历数组，替换title和content内容
       .map((ndr) => {
         let result = tpl.replace("{{title}}", ndr.title)
           .replace("{{content}}", ndr.content);
         return result;
       })
-      .join("");
-      news.innerHTML = html;
+      .join("");//用空字符分割
+      news.innerHTML = html;//将内容渲染进news盒子中
     
   }
   
@@ -102,16 +102,16 @@ async function get(url) {
     //页码跳转
     let skipInput = document.querySelector(".skip input");
     //【需要完成代码2】：此处实现输入页码回车跳转
-    skipInput.addEventListener('keyup', function (e) {
-        p = skipInput.value;
-        if (e.key === 'Enter' && skipInput.value != '') {
+    skipInput.addEventListener('keyup', function (e) { //给输入框添加键盘抬起事件
+        p = skipInput.value;//将用户输入的页数赋值给p
+        if (e.key === 'Enter' && skipInput.value != '') {//当用户按下Enter并且输入的页数不为空时，排他思想：遍历伪数组，去掉添加高亮的类
           for (let j = 0; j < asAll.length; j++) {
             asAll[j].classList.remove('page-current')
           }
-          renderNews()
-          asAll[p - 1].classList.add('page-current')
+          renderNews()//重新渲染页面
+          asAll[p - 1].classList.add('page-current')//将跳转到的页面添加高亮
         }
-        if (p > asAll.length) {
+        if (p > asAll.length) {//跳转的页数大于数组长度结束点击事件
           return;
         }
       })
